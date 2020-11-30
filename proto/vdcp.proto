@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package VDCP;
+
+message UpdateTimesRequest {
+  map<int,duration> Times=3;
+}
+
+message UpdateTimesResponse {
+    bool succ = 0;
+}
+
+service UpdateTimes {
+    rpc SendTimes (UpdateTimesRe738quest) returns (UpdateTimesResponse);
+}

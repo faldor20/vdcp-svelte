@@ -1,0 +1,60 @@
+Arguments: 
+  /usr/bin/node /usr/bin/yarn add @types/grpc-web
+
+PATH: 
+  /home/eli/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/jvm/default/bin
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  15.2.1
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@types%2fgrpc-web: Not found
+      at Request.params.callback [as _callback] (/usr/lib/node_modules/yarn/lib/cli.js:66988:18)
+      at Request.self.callback (/usr/lib/node_modules/yarn/lib/cli.js:140749:22)
+      at Request.emit (node:events:329:20)
+      at Request.<anonymous> (/usr/lib/node_modules/yarn/lib/cli.js:141721:10)
+      at Request.emit (node:events:329:20)
+      at IncomingMessage.<anonymous> (/usr/lib/node_modules/yarn/lib/cli.js:141643:12)
+      at Object.onceWrapper (node:events:435:28)
+      at IncomingMessage.emit (node:events:341:22)
+      at endReadableNT (node:internal/streams/readable:1294:12)
+      at processTicksAndRejections (node:internal/process/task_queues:80:21)
+
+npm manifest: 
+  {
+    "name": "svelte-app",
+    "version": "1.0.0",
+    "scripts": {
+      "build": "rollup -c",
+      "dev": "rollup -c -w",
+      "start": "sirv public"
+    },
+    "devDependencies": {
+      "@rollup/plugin-commonjs": "^16.0.0",
+      "@rollup/plugin-node-resolve": "^10.0.0",
+      "rollup": "^2.3.4",
+      "rollup-plugin-css-only": "^3.0.0",
+      "rollup-plugin-livereload": "^2.0.0",
+      "rollup-plugin-svelte": "^7.0.0",
+      "rollup-plugin-terser": "^7.0.0",
+      "svelte": "^3.0.0",
+      "typescript": "^4.1.2"
+    },
+    "dependencies": {
+      "axios": "^0.21.0",
+      "grpc-web": "^1.2.1",
+      "sirv-cli": "^1.0.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
