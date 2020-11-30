@@ -4,7 +4,7 @@
 	
 	let vdcpHost="localhost"
 	
-	let times:Map<number,number>=new Map([]);
+	let times:vdcp.Times={times:new Map()};
 	
 
 	let ports= vdcp.getData(null);
@@ -18,7 +18,7 @@
 		<li>
 			{port.name}
 			{port.port}
-			<input type=number bind:value={times[port.port]} >
+			<input type=number bind:value={times.times[port.port]} >
 		</li>
 	{/each}
 	</ul>

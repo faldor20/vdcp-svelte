@@ -1,11 +1,12 @@
 import axios from "axios";
 import { element } from "svelte/internal";
 export module vdcp {
-  type Ports = Array<{
+  export type Ports = Array<{
     port: number;
     name: string;
   }>;
-  type Times=Map<number,number>;
+  
+  export type VDCPTimes={times:Map<number,number[]>};
   ///gets the vdcp data from the server at the url provided, if null is given dummy data will be returned
   export function getData(url: string) {
     if (url == null) {
@@ -26,7 +27,7 @@ export module vdcp {
       return ports;
     }
 }
-    export function setData(url: string,data:Times) {
+    export function setData(url: string,data:VDCPTimes) {
        if(url==null){
             console.log("would have sent:",data);
        }else{
