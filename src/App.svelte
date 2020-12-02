@@ -1,28 +1,42 @@
 <script lang="typescript">
+import { onMount } from "svelte";
+
 
 	import {vdcp} from "./vdcp"
 	
-	let vdcpHost="localhost"
+	let vdcpHost="http://localhost:8000"
 	
-	let times:vdcp.Times={times:new Map()};
+	let times:vdcp.VDCPTimes={times:new Map()};
 	
-
-	let ports= vdcp.getData(null);
+	let config:vdcp.Config={ports:[]};
+	
+	onMount(async()=>{
+		config= await vdcp.getData(vdcpHost);
+		for (let i = 0; i < config.ports.length; i++) {
+			const port = config.ports[i];
+			
+				times.times[i]=[];
+			
+		} 
+	})
 </script>
 
 <main>
 	<h1>VDCP time setter</h1>
 	<p>Please set your times below:</p>
 	<ul>
-		{#each ports as port}
+		{#each config.ports as port ,i}
 		<li>
 			{port.name}
 			{port.port}
-			<input type=number bind:value={times.times[port.port]} >
+			{#each port.segments as seg,j}
+				{seg}
+				<input type=number bind:value={times.times[i][j]} >
+			{/each}
 		</li>
 	{/each}
 	</ul>
-	<button type="submit" on:click={vdcp.setData(null,times)}>set Times</button>
+	<button type="submit" on:click={vdcp.setData(vdcpHost,times)}>set Times</button>
 </main>
 
 <style>
