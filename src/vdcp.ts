@@ -36,7 +36,7 @@ export module vdcp {
             console.log("would have sent:",data);
        }else{
         console.log("sent times:",data);
-            axios.put(url+"/times",data).catch(err=>console.error(err));
+            axios.put(url+"/times",data).catch(err=>console.error(err)).then(a=>{console.log("got reponse:");console.log(a)});
        }
   }
 }

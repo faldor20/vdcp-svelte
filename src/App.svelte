@@ -1,16 +1,25 @@
+
 <script lang="typescript">
 import { onMount } from "svelte";
 
+	interface ConfigData{
+		VDCPSpoofUrl:string
+	}
 
+	
 	import {vdcp} from "./vdcp"
-	
-	let vdcpHost="http://localhost:8000"
-	
+
+	let vdcpHost=null;
 	let times:vdcp.VDCPTimes={times:new Map()};
 	
 	let config:vdcp.Config={ports:[]};
 	
 	onMount(async()=>{
+		//read json
+		let configJson:ConfigData=await (await fetch('config.json')).json();
+		vdcpHost=configJson.VDCPSpoofUrl;
+		console.log("read config and got host"+configJson.VDCPSpoofUrl);
+
 		config= await vdcp.getData(vdcpHost);
 		for (let i = 0; i < config.ports.length; i++) {
 			const port = config.ports[i];
@@ -24,18 +33,25 @@ import { onMount } from "svelte";
 <main>
 	<h1>VDCP time setter</h1>
 	<p>Please set your times below:</p>
-	<ul>
+	<div class="sideways">
 		{#each config.ports as port ,i}
-		<li>
-			{port.name}
-			{port.port}
+		<div class="item" >
+			<h3 >
+				{port.name}
+				{port.port}
+			</h3>
+			<ul>
+
 			{#each port.segments as seg,j}
+			<li>
 				{seg}
 				<input type=number bind:value={times.times[i][j]} >
+				</li>
 			{/each}
-		</li>
+		</ul>
+	</div>
 	{/each}
-	</ul>
+</div>
 	<button type="submit" on:click={vdcp.setData(vdcpHost,times)}>set Times</button>
 </main>
 
@@ -52,6 +68,14 @@ import { onMount } from "svelte";
 		text-transform: uppercase;
 		font-size: 4em;
 		font-weight: 100;
+	}
+	.sideways{
+		justify-content: center;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+
+
 	}
 
 	@media (min-width: 640px) {
