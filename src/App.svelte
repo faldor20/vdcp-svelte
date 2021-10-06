@@ -1,15 +1,16 @@
 
 <script lang="typescript">
 import { onMount } from "svelte";
-
-	interface ConfigData{
-		VDCPSpoofUrl:string
-	}
-
 	
+interface ConfigData{
+	VDCPSpoofUrl:string
+}
+
+
 	import {vdcp} from "./vdcp"
 
 	let vdcpHost=null;
+	let vdcpAPI= null;
 	let times:vdcp.VDCPTimes={times:new Map()};
 	
 	let config:vdcp.Config={ports:[]};
@@ -18,9 +19,10 @@ import { onMount } from "svelte";
 		//read json
 		let configJson:ConfigData=await (await fetch('config.json')).json();
 		vdcpHost=configJson.VDCPSpoofUrl;
+		vdcpAPI=new vdcp.VDCPAPI(vdcpHost)
 		console.log("read config and got host"+configJson.VDCPSpoofUrl);
 
-		config= await vdcp.getData(vdcpHost);
+		config= await vdcp.getData(vdcpAPI);
 		for (let i = 0; i < config.ports.length; i++) {
 			const port = config.ports[i];
 			
@@ -52,7 +54,7 @@ import { onMount } from "svelte";
 	</div>
 	{/each}
 </div>
-	<button type="submit" on:click={vdcp.setData(vdcpHost,times)}>set Times</button>
+	<button type="submit" on:click={vdcp.setData(vdcpAPI,times)}>set Times</button>
 </main>
 
 <style>
